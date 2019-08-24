@@ -1,0 +1,131 @@
+import 'date-fns';
+import React from 'react';
+import Firebase from 'firebase';
+import Button from "@bit/mui-org.material-ui.button";
+
+import ReactDOM from 'react-dom';
+import Grid from '@material-ui/core/Grid';
+import DateFnsUtils from '@date-io/date-fns';
+import ruLocale from "date-fns/locale/ru";
+import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
+import PropTypes from 'prop-types';
+import { withStyles } from "@bit/mui-org.material-ui.styles";
+import Input from "@bit/mui-org.material-ui.input";
+// import OutlinedInput from "@bit/mui-org.material-ui.outlined-input";
+// import FilledInput from "@bit/mui-org.material-ui.filled-input";
+import InputLabel from "@bit/mui-org.material-ui.input-label";
+import MenuItem from "@bit/mui-org.material-ui.menu-item";
+import FormHelperText from "@bit/mui-org.material-ui.form-helper-text";
+import FormControl from "@bit/mui-org.material-ui.form-control";
+import Select from "@bit/mui-org.material-ui.select";
+import {timeTable, daysType} from "../../../Database/database";
+
+const styles = theme => ({
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120
+  },
+  selectEmpty: {
+    marginTop: theme.spacing.unit * 2
+  }
+});
+
+class DataTimePicker extends React.Component {
+  state = {
+    pickedDate: this.props.pickedDate,
+    pickedTime: this.props.pickedTime,
+    freeTimeTable: [],
+    // currentDateData
+  }
+
+  handleDateChange = (date) => {
+    this.setState({pickedDate: date});
+    this.getFreeTimeTable(date);
+  }
+
+  componentDidMount() {
+    this.getFreeTimeTable(this.state.pickedDate);
+  }
+
+  handleTimeChange = event => {
+    this.setState({ pickedTime: event.target.value });
+    this.props.callbackPickedDateTime({ date: this.state.pickedDate, time: event.target.value });
+  };
+
+  getFreeTimeTable = (pickedDate) => {
+    const day = pickedDate.getDay();
+    const date = pickedDate.getDate();
+    const month = pickedDate.getMonth()+1;
+    const year = pickedDate.getFullYear();
+    const fullDate = `${date}-${month}-${year}`;
+    const dayTable = timeTable[day];
+
+    let ref = Firebase.database().ref(`${fullDate}/`);
+    let currentDateData = null;
+    ref.on("value", snapshot => {
+      currentDateData = snapshot.val();
+      this.setState({currentDateData});
+      // console.log(currentDateData);
+      
+      if(currentDateData === null) {
+        this.setState({ freeTimeTable: dayTable })
+      }
+      else {
+        const currentDateTime = Object.keys(currentDateData);
+        const freeTimeTable = dayTable.filter( time => !currentDateTime.includes(time));
+        this.setState({freeTimeTable});
+      }
+    });
+    // console.log(this.state);
+  }
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
+        <Grid container justify="space-around">
+          <KeyboardDatePicker
+            margin="normal"
+            id="date-picker-dialog"
+            label="Дата приема"
+            format="dd/MM/yyyy"
+            value={this.state.pickedDate}
+            onChange={this.handleDateChange}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
+            }}
+          />
+
+
+          {/* TIME */}
+          <FormControl className={classes.formControl}>
+            <InputLabel shrink htmlFor="time-label-placeholder">
+              Время приема
+            </InputLabel>
+            <Select 
+              value={this.state.pickedTime}
+              onChange={this.handleTimeChange}
+              input={<Input id="time-label-placeholder" />}
+              displayEmpty
+              className={classes.selectEmpty}
+            >
+              <MenuItem value="">
+                Выберите время
+              </MenuItem>
+              {this.state.freeTimeTable.map( (time) => 
+                <MenuItem value={time} key={time}>{time}</MenuItem>)
+              }
+            </Select>
+          </FormControl>
+        </Grid>
+      </MuiPickersUtilsProvider>
+    );
+  }
+}
+
+DataTimePicker.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(DataTimePicker);
