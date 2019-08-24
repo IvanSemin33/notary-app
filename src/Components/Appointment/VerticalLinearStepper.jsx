@@ -1,4 +1,5 @@
 import React from 'react';
+import Firebase from 'firebase';
 import PropTypes from 'prop-types';
 import { withStyles } from "@bit/mui-org.material-ui.styles";
 import Stepper from "@bit/mui-org.material-ui.stepper";
@@ -10,8 +11,8 @@ import Paper from "@bit/mui-org.material-ui.paper";
 import Typography from "@bit/mui-org.material-ui.typography";
 import DocsPicker from './DocsPicker/DocsPicker';
 import DataTimePicker from './DataTimePicker/DataTimePicker';
-
-
+import ClientNameInput from './ClientNameInput/ClientNameInput';
+import docsInfo from '../../Database/docsInfo';
 
 const styles = theme => ({
   root: {
@@ -35,7 +36,11 @@ class VerticalLinearStepper extends React.Component {
     pickedDocs: [],
     pickedDateTime: {
       date: new Date(),
-      time: ''
+      time: '',
+    },
+    inputedName: {
+      first: '',
+      last: '',
     },
   };
 
@@ -59,19 +64,38 @@ class VerticalLinearStepper extends React.Component {
         );
       case 2:
         return(
-          ''
-        )
+          <ClientNameInput callbackClientNameInput={this.callbackClientNameInput} first={this.state.inputedName.first} last={this.state.inputedName.last}/>
+        );
       default:
         return 'Unknown step';
     }
   }
 
   handleNext = () => {
-    this.setState(state => ({
-      activeStep: state.activeStep + 1
-    }));
+    this.setState(state => ({activeStep: state.activeStep + 1}));
     console.log(this.state);
-    // console.log(this.state.pickedDate.getDay());
+    
+    //appoitment button
+    const steps = this.getSteps();
+    if(this.state.activeStep === steps.length - 1) {
+      
+      const {time, date} = this.state.pickedDateTime;
+      const dateNum = date.getDate();
+      const month = date.getMonth()+1;
+      const year = date.getFullYear();
+      const fullDate = `${dateNum}-${month}-${year}`;
+      const {first, last} = this.state.inputedName;
+      const docs = this.state.pickedDocs.map( (docIndex) => docsInfo[docIndex]);
+    
+      Firebase.database().ref(`/${fullDate}/`).update(
+        {
+          [time]: {
+            client: `${last} ${first}`,
+            docs: docs
+          }
+        }
+      );
+    }
   };
 
   handleBack = () => {
@@ -83,6 +107,15 @@ class VerticalLinearStepper extends React.Component {
   handleNewAppointment = () => {
     this.setState({
       activeStep: 0,
+      pickedDocs: [],
+      pickedDateTime: {
+        date: new Date(),
+        time: '',
+      },
+      inputedName: {
+        first: '',
+        last: '',
+      },
     });
   };
 
@@ -92,6 +125,10 @@ class VerticalLinearStepper extends React.Component {
 
   callbackPickedDateTime = (pickedDateTime) => {
     this.setState({pickedDateTime});
+  }
+
+  callbackClientNameInput = (inputedName) => {
+    this.setState({inputedName});
   }
 
   render() {

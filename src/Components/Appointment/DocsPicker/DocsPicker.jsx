@@ -6,7 +6,7 @@ import ExpansionPanelDetails from "@bit/mui-org.material-ui.expansion-panel-deta
 import ExpansionPanelSummary from "@bit/mui-org.material-ui.expansion-panel-summary";
 import Typography from "@bit/mui-org.material-ui.typography";
 import ExpandMoreIcon from "@bit/mui-org.material-ui-icons.expand-more";
-import docsInfo from './docsInfo';
+import docsInfo from '../../../Database/docsInfo';
 import Checkbox from "@bit/mui-org.material-ui.checkbox";
 import Button from "@bit/mui-org.material-ui.button";
 import Container from 'react-bootstrap/Container';

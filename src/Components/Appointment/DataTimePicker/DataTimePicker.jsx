@@ -43,7 +43,7 @@ class DataTimePicker extends React.Component {
     this.getFreeTimeTable(date);
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.getFreeTimeTable(this.state.pickedDate);
   }
 
