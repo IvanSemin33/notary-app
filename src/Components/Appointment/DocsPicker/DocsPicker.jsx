@@ -73,13 +73,13 @@ class DocsPicker extends React.Component {
           justify="center"
           alignItems="center"
         >
-          <Grid item xl={12}>
+          {/* <Grid item xl={12}>
             <Grid container
               direction="row"
               justify="center"
               alignItems="center"
               spacing={1}
-            >
+            > */}
               <Grid item md={11}>
                 <ExpansionPanel 
                   expanded={expanded === `panel${index}`} 
@@ -109,8 +109,8 @@ class DocsPicker extends React.Component {
                 </ExpansionPanel>
               </Grid>
             </Grid>
-          </Grid>
-        </Grid>
+        //   </Grid>
+        // </Grid>
       )
     });
 
