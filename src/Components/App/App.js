@@ -1,5 +1,5 @@
 import React from 'react';
-import MainCard from '../MainCard/MainCard'
+import Main from '../Main/Main'
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
@@ -23,7 +23,7 @@ class App extends React.Component {
         <Container>
           <Row>
             <Col>
-             <MainCard/>
+             <Main/>
             </Col>
           </Row>
         </Container>

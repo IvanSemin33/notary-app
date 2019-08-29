@@ -21,30 +21,42 @@ class ClientNameInput extends React.Component {
 
     render() {
         return(
-            <Grid container justify="space-around">
-                <Grid item>
-                    <TextField
-                        required
-                        id="standard-required"
-                        label="Имя"
-                        // className={classes.textField}
-                        margin="normal"
-                        value={this.state.first}
-                        onChange={this.handleOnChangeFirst}
-                    />
-                </Grid>
-                <Grid item>
-                    <TextField
-                        required
-                        id="standard-required"
-                        label="Фамилия"
-                        // className={classes.textField}
-                        margin="normal"
-                        value={this.state.last}
-                        onChange={this.handleOnChangeLast}
-                    />
-                </Grid>
-            </Grid>
+            <Grid container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+                spacing={2}
+            >
+                {/* <Grid item xl={12}>
+                    <Grid container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                        spacing={3}
+                    > */}
+                        <Grid item md={5}>
+                            <TextField
+                                required
+                                id="standard-required"
+                                label="Имя"
+                                margin="normal"
+                                value={this.state.first}
+                                onChange={this.handleOnChangeFirst}
+                            />
+                        </Grid>
+                        <Grid item md={5}>
+                            <TextField
+                                required
+                                id="standard-required"
+                                label="Фамилия"
+                                margin="normal"
+                                value={this.state.last}
+                                onChange={this.handleOnChangeLast}
+                            />
+                        </Grid>
+                    </Grid>
+            //     </Grid>
+            // </Grid>
         )
     }
 }

@@ -1,9 +1,6 @@
 import 'date-fns';
 import React from 'react';
 import Firebase from 'firebase';
-import Button from "@bit/mui-org.material-ui.button";
-
-import ReactDOM from 'react-dom';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import ruLocale from "date-fns/locale/ru";
@@ -11,19 +8,19 @@ import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from 
 import PropTypes from 'prop-types';
 import { withStyles } from "@bit/mui-org.material-ui.styles";
 import Input from "@bit/mui-org.material-ui.input";
-// import OutlinedInput from "@bit/mui-org.material-ui.outlined-input";
-// import FilledInput from "@bit/mui-org.material-ui.filled-input";
 import InputLabel from "@bit/mui-org.material-ui.input-label";
 import MenuItem from "@bit/mui-org.material-ui.menu-item";
-import FormHelperText from "@bit/mui-org.material-ui.form-helper-text";
 import FormControl from "@bit/mui-org.material-ui.form-control";
 import Select from "@bit/mui-org.material-ui.select";
 import {timeTable, daysType} from "../../../Database/database";
 
 const styles = theme => ({
+  root: {
+    width: '100%'
+  },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 120
+    width: "100%"
   },
   selectEmpty: {
     marginTop: theme.spacing.unit * 2
@@ -83,43 +80,61 @@ class DataTimePicker extends React.Component {
     const { classes } = this.props;
 
     return (
-      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
-        <Grid container justify="space-around">
-          <KeyboardDatePicker
-            margin="normal"
-            id="date-picker-dialog"
-            label="Дата приема"
-            format="dd/MM/yyyy"
-            value={this.state.pickedDate}
-            onChange={this.handleDateChange}
-            KeyboardButtonProps={{
-              'aria-label': 'change date',
-            }}
-          />
-
-
-          {/* TIME */}
-          <FormControl className={classes.formControl}>
-            <InputLabel shrink htmlFor="time-label-placeholder">
-              Время приема
-            </InputLabel>
-            <Select 
-              value={this.state.pickedTime}
-              onChange={this.handleTimeChange}
-              input={<Input id="time-label-placeholder" />}
-              displayEmpty
-              className={classes.selectEmpty}
-            >
-              <MenuItem value="">
-                Выберите время
-              </MenuItem>
-              {this.state.freeTimeTable.map( (time) => 
-                <MenuItem value={time} key={time}>{time}</MenuItem>)
-              }
-            </Select>
-          </FormControl>
-        </Grid>
-      </MuiPickersUtilsProvider>
+      <Grid container
+        direction="row"
+        justify="space-around"
+        alignItems="center"
+        spacing={2}
+        className={classes.root}
+      >
+        {/* <Grid item xl={12}>
+          <Grid container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={1}
+            className={classes.root}
+          > */}
+            <Grid item md={12}>
+              <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
+                <KeyboardDatePicker
+                  style={{width: "100%"}} 
+                  margin="normal"
+                  id="date-picker-dialog"
+                  label="Дата приема"
+                  format="dd/MM/yyyy"
+                  value={this.state.pickedDate}
+                  onChange={this.handleDateChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            </Grid>
+            <Grid item md={12}>
+              <FormControl className={classes.formControl}>
+                <InputLabel shrink htmlFor="time-label-placeholder">
+                  Время приема
+                </InputLabel>
+                <Select 
+                  value={this.state.pickedTime}
+                  onChange={this.handleTimeChange}
+                  input={<Input id="time-label-placeholder" />}
+                  displayEmpty
+                  className={classes.selectEmpty}
+                >
+                  <MenuItem value="">
+                    Выберите время
+                  </MenuItem>
+                  {this.state.freeTimeTable.map( (time) => 
+                    <MenuItem value={time} key={time}>{time}</MenuItem>)
+                  }
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+      //   </Grid>
+      // </Grid>
     );
   }
 }

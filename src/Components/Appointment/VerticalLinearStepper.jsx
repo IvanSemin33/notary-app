@@ -13,6 +13,7 @@ import DocsPicker from './DocsPicker/DocsPicker';
 import DataTimePicker from './DataTimePicker/DataTimePicker';
 import ClientNameInput from './ClientNameInput/ClientNameInput';
 import docsInfo from '../../Database/docsInfo';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   root: {
@@ -136,32 +137,41 @@ class VerticalLinearStepper extends React.Component {
     const steps = this.getSteps();
     const { activeStep } = this.state;
 
-    return <div className={classes.root}>
-        <Stepper activeStep={activeStep} orientation="vertical">
-          {steps.map((label, index) => <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-              <StepContent>
-                {this.getStepContent(index)}
-                <div className={classes.actionsContainer}>
-                  <div>
-                    <Button disabled={activeStep === 0} onClick={this.handleBack} className={classes.button}>
-                      Назад
-                    </Button>
-                    <Button variant="contained" color="primary" onClick={this.handleNext} className={classes.button}>
-                      {activeStep === steps.length - 1 ? 'Записаться' : 'Далее'}
-                    </Button>
+    return(
+      <Grid container 
+        direction="column"
+        justify="center"
+        alignItems="center"
+        className={classes.root}
+        // spacing={5}
+      >
+        <Grid item>
+          <Stepper activeStep={activeStep} orientation="vertical">
+            {steps.map((label, index) => <Step key={label}>
+                <StepLabel><Typography variant="h5">{label}</Typography></StepLabel>
+                <StepContent>
+                  {this.getStepContent(index)}
+                  <div className={classes.actionsContainer}>
+                    <div>
+                      <Button disabled={activeStep === 0} onClick={this.handleBack} className={classes.button}>
+                        Назад
+                      </Button>
+                      <Button variant="contained" color="primary" onClick={this.handleNext} className={classes.button}>
+                        {activeStep === steps.length - 1 ? 'Записаться' : 'Далее'}
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </StepContent>
-            </Step>)}
-        </Stepper>
-        {activeStep === steps.length && <Paper square elevation={0} className={classes.resetContainer}>
+                </StepContent>
+              </Step>)}
+            </Stepper>
+            {activeStep === steps.length && <Paper square elevation={0} className={classes.resetContainer}>
             <Typography>Вы записаны на прием.</Typography>
-            <Button onClick={this.handleNewAppointment} className={classes.button} color="primary" variant="contained">
-              Новая запись
-            </Button>
-          </Paper>}
-      </div>;
+              <Button onClick={this.handleNewAppointment} className={classes.button} color="primary" variant="contained">
+                Новая запись
+              </Button>
+            </Paper>}
+        </Grid>
+      </Grid>);
   }
 }
 

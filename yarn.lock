@@ -810,6 +810,19 @@
   dependencies:
     "@bit/mui-org.material-ui-icons.create-svg-icon" "3.9.2"
 
+"@bit/mui-org.material-ui.app-bar@^3.9.2":
+  version "3.9.2"
+  resolved "https://node.bit.dev/mui-org.material-ui.app-bar/-/mui-org.material-ui.app-bar-3.9.2.tgz#ff83423e24783e7a4608e545548781ceb8db9fe6"
+  integrity sha1-/4NCPiR4PnpGCOVFVIeBzrjbn+Y=
+  dependencies:
+    "@bit/mui-org.material-ui.internal.helpers" "3.9.2"
+    "@bit/mui-org.material-ui.paper" "3.9.2"
+    "@bit/mui-org.material-ui.prop-typesd" "3.9.2"
+    "@bit/mui-org.material-ui.standard-propsd" "3.9.2"
+    "@bit/mui-org.material-ui.styles" "3.9.2"
+    classnames "2.2.6"
+    prop-types "15.7.2"
+
 "@bit/mui-org.material-ui.backdrop@3.9.2":
   version "3.9.2"
   resolved "https://node.bit.dev/mui-org.material-ui.backdrop/-/mui-org.material-ui.backdrop-3.9.2.tgz#4dafc090a0b02098ce91b937df94210e919b6dc9"
@@ -1546,6 +1559,17 @@
     chai "^4.1.2"
     enzyme "^3.5.0"
     jss "9.8.7"
+    prop-types "15.7.2"
+
+"@bit/mui-org.material-ui.toolbar@^3.9.2":
+  version "3.9.2"
+  resolved "https://node.bit.dev/mui-org.material-ui.toolbar/-/mui-org.material-ui.toolbar-3.9.2.tgz#159a37b3ee4dd3f57ee0e1d0290bc8822deabb71"
+  integrity sha1-FZo3s+5N0/V+4OHQKQvIgi3qu3E=
+  dependencies:
+    "@bit/mui-org.material-ui.prop-typesd" "3.9.2"
+    "@bit/mui-org.material-ui.standard-propsd" "3.9.2"
+    "@bit/mui-org.material-ui.styles" "3.9.2"
+    classnames "2.2.6"
     prop-types "15.7.2"
 
 "@bit/mui-org.material-ui.typography@3.9.2":
