@@ -15,9 +15,10 @@ class TimeTable extends React.Component {
                 justify="center"
                 alignItems="center"
                 spacing={3}
+                
             >
                 <Grid item>
-                    <Typography variant="h5">График приёма граждан</Typography>
+                    <Typography variant="h4">График приёма граждан</Typography>
                 </Grid>
                 <Grid item>
                     <Table size="small">

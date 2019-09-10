@@ -12,7 +12,7 @@ import Typography from "@bit/mui-org.material-ui.typography";
 import DocsPicker from './DocsPicker/DocsPicker';
 import DataTimePicker from './DataTimePicker/DataTimePicker';
 import ClientNameInput from './ClientNameInput/ClientNameInput';
-import docsInfo from '../../Database/docsInfo';
+import docsInfo from '../../../Database/docsInfo';
 import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
@@ -50,7 +50,7 @@ class VerticalLinearStepper extends React.Component {
   }
 
   getSteps() {
-    return ['Выберите нужные вам услуги', 'Выберите время приема', 'Введите личные данные'];
+    return ['Выберите нужные Вам услуги', 'Выберите время приема', 'Введите личные данные'];
   }
 
   getStepContent(step) {
@@ -88,10 +88,13 @@ class VerticalLinearStepper extends React.Component {
       const {first, last} = this.state.inputedName;
       const docs = this.state.pickedDocs.map( (docIndex) => docsInfo[docIndex]);
     
-      Firebase.database().ref(`/${fullDate}/`).update(
+      Firebase.database().ref(`/${year}/${fullDate}/`).update(
         {
           [time]: {
-            client: `${last} ${first}`,
+            client: {
+              first: `${first}`,
+              last: `${last}`,
+            },
             docs: docs
           }
         }
@@ -143,9 +146,11 @@ class VerticalLinearStepper extends React.Component {
         justify="center"
         alignItems="center"
         className={classes.root}
-        // spacing={5}
       >
         <Grid item>
+          <Typography variant="h4">Запись на приём</Typography>
+        </Grid>
+        <Grid item style={{width: '100%'}}>
           <Stepper activeStep={activeStep} orientation="vertical">
             {steps.map((label, index) => <Step key={label}>
                 <StepLabel><Typography variant="h5">{label}</Typography></StepLabel>
@@ -165,7 +170,7 @@ class VerticalLinearStepper extends React.Component {
               </Step>)}
             </Stepper>
             {activeStep === steps.length && <Paper square elevation={0} className={classes.resetContainer}>
-            <Typography>Вы записаны на прием.</Typography>
+            <Typography variant="h5" align="center" style={{color: "green"}}>Вы записаны на прием.</Typography>
               <Button onClick={this.handleNewAppointment} className={classes.button} color="primary" variant="contained">
                 Новая запись
               </Button>

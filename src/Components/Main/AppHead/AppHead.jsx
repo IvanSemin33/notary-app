@@ -4,7 +4,7 @@ import { withStyles } from "@bit/mui-org.material-ui.styles";
 import AppBar from "@bit/mui-org.material-ui.app-bar";
 import Toolbar from "@bit/mui-org.material-ui.toolbar";
 import Typography from "@bit/mui-org.material-ui.typography";
-import logo from "../../images/logo.png"
+import logo from "../../../images/logo.png"
 import { Grid } from '@material-ui/core';
 
 const styles = {
