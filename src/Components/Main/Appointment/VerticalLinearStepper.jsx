@@ -88,7 +88,7 @@ class VerticalLinearStepper extends React.Component {
       const {first, last} = this.state.inputedName;
       const docs = this.state.pickedDocs.map( (docIndex) => docsInfo[docIndex]);
     
-      Firebase.database().ref(`/${year}/${fullDate}/`).update(
+      Firebase.database().ref(`/${year}/${month}/${dateNum}`).update(
         {
           [time]: {
             client: {

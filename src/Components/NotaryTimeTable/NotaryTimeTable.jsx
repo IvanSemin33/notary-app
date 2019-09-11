@@ -2,9 +2,14 @@ import React from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 import ruLocale from "date-fns/locale/ru";
+import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -19,50 +24,45 @@ import _ from 'lodash';
 class NotaryTimeTable extends React.Component {
     state = {
         isLogin: false,
-        pickedDateData: {},
-        pickedDate: new Date(),
-        fullDate: '',
         pass: '5819',
         passInput: '',
-    }
 
-    handleDateChange = (date) => {
-        this.setState({pickedDate: date});
+        tableData: {},
+        pickedMonth: new Date().getMonth()+1,
+        currentYear: new Date().getFullYear(),
     }
     
     onClickRefresh = () => {
-        const {pickedDate} = this.state;
-        const day = pickedDate.getDay();
-        const date = pickedDate.getDate();
-        const month = pickedDate.getMonth()+1;
-        const year = pickedDate.getFullYear();
-        const fullDate = `${date}-${month}-${year}`;
+        const {pickedMonth, currentYear} = this.state;
 
-        let ref = Firebase.database().ref(`/${year}/${fullDate}`);
-        let pickedDateData = {};
+        let ref = Firebase.database().ref(`/${currentYear}/${pickedMonth}/`);
+        let tableData = {};
         ref.on("value", snapshot => {
-            pickedDateData = snapshot.val();
+            tableData = snapshot.val();
         });
-        this.setState({pickedDateData});
-        this.setState({fullDate});
+        this.setState({tableData});
+        // console.log(tableData);
     }
 
     renderTable = () => {
-        const {fullDate, pickedDateData, isLogin} = this.state;
+        const {tableData, pickedMonth} = this.state;
         
-        const table = _.keys(pickedDateData).map( time => {
-            const currentTimeData = pickedDateData[time];
-            const docs = currentTimeData.docs.map( doc => <p>{doc.name}</p>);
-            console.log(currentTimeData);
-            return(
-                <TableRow key={time}>
+        const table = _.keys(tableData).map( day => {
+            const currentDateData = tableData[day];
+            return _.keys(currentDateData).map( time => {
+                const currentTimeData = currentDateData[time];
+                const docs = currentTimeData.docs.map( doc => <p key={doc.name}>{doc.name}</p>);
+                console.log(currentTimeData);
+                return(
+                    <TableRow key={time}>
                         <TableCell component="th" scope="row" align="center">{currentTimeData.client.first}</TableCell>
                         <TableCell align="center">{currentTimeData.client.last}</TableCell>
-                        <TableCell align="center">{fullDate}</TableCell>
+                        <TableCell align="center">{day}</TableCell>
                         <TableCell align="center">{time}</TableCell>
                         <TableCell align="center">{docs}</TableCell>
-                </TableRow>
-            )
+                    </TableRow>
+                )
+            });
         });
         return table;
     }
@@ -70,41 +70,70 @@ class NotaryTimeTable extends React.Component {
     handlePassInput = (e) => {
         this.setState({passInput: e.target.value})
     }
-    onEnter = () => {
+    onLogin = () => {
         if(this.state.passInput === this.state.pass) {
             this.setState({isLogin: true});
         }
     }
 
+    handleMonthChange = event => {
+        this.setState({ pickedMonth: event.target.value });
+    };
+
     render() {
         return(
-            <div>
-                <TextField
-                    id="standard-password-input"
-                    label="Password"
-                    type="password"
-                    autoComplete="current-password"
-                    margin="normal"
-                    onChange={this.handlePassInput}
-                />
-                <Button onClick={this.onEnter}>Войти</Button>
-                {this.state.isLogin ? 
-                    (<div>
-                        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
-                            <KeyboardDatePicker
+            <Grid container
+                direction="column"
+                justify="center"
+                alignItems="center"
+                spacing={5}
+            >
+                {this.state.isLogin ? '' :
+                    (<Grid item>
+                        <Grid item>
+                            <TextField
+                                id="standard-password-input"
+                                label="Password"
+                                type="password"
+                                autoComplete="current-password"
                                 margin="normal"
-                                id="date-picker-dialog"
-                                label="Дата приема"
-                                format="dd/MM/yyyy"
-                                value={this.state.pickedDate}
-                                onChange={this.handleDateChange}
-                                KeyboardButtonProps={{
-                                    'aria-label': 'change date',
-                                }}
-                                />
-                        </MuiPickersUtilsProvider>
-                        <Button onClick={this.onClickRefresh}>Обновить</Button>
-                        <Table>
+                                onChange={this.handlePassInput}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Button onClick={this.onLogin} variant="contained" size="large" color="primary">Войти</Button>
+                        </Grid>
+                    </Grid>)
+                }
+                {this.state.isLogin ? 
+                (<Grid item>   
+                    <Grid item align="center">
+                        <FormControl>
+                            <InputLabel htmlFor="month-simple">Месяц</InputLabel>
+                            <Select
+                                value={this.state.pickedMonth}
+                                onChange={this.handleMonthChange}
+                            >
+                                <MenuItem value={1}>Январь</MenuItem>
+                                <MenuItem value={2}>Февраль</MenuItem>
+                                <MenuItem value={3}>Март</MenuItem>
+                                <MenuItem value={4}>Апрель</MenuItem>
+                                <MenuItem value={5}>Май</MenuItem>
+                                <MenuItem value={6}>Июнь</MenuItem>
+                                <MenuItem value={7}>Июль</MenuItem>
+                                <MenuItem value={8}>Август</MenuItem>
+                                <MenuItem value={9}>Сентябрь</MenuItem>
+                                <MenuItem value={10}>Октябрь</MenuItem>
+                                <MenuItem value={11}>Ноябрь</MenuItem>
+                                <MenuItem value={12}>Декабрь</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item align="center">
+                        <Button onClick={this.onClickRefresh} variant="contained" size="large" color="primary">Обновить</Button>
+                    </Grid>
+                    <Grid item>
+                        <Table style={{width: '100%'}}>
                             <TableHead>
                                 <TableRow>
                                     <TableCell align="center">Имя</TableCell>
@@ -118,8 +147,9 @@ class NotaryTimeTable extends React.Component {
                             {this.renderTable()}
                             </TableBody>
                         </Table>
-                    </div>):''}
-            </div>
+                    </Grid>
+                </Grid>):''}
+            </Grid>
         );
     }
 }

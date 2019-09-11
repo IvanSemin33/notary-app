@@ -60,7 +60,7 @@ class DataTimePicker extends React.Component {
     const fullDate = `${date}-${month}-${year}`;
     const dayTable = timeTable[day];
 
-    let ref = Firebase.database().ref(`/${year}/${fullDate}/`);
+    let ref = Firebase.database().ref(`/${year}/${month}/${date}`);
     let currentDateData = null;
     ref.on("value", snapshot => {
       currentDateData = snapshot.val();
