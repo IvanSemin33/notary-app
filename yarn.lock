@@ -1088,6 +1088,11 @@
     classnames "2.2.6"
     prop-types "15.7.2"
 
+"@bit/mui-org.material-ui.internal.animate@3.9.2":
+  version "3.9.2"
+  resolved "https://node.bit.dev/mui-org.material-ui.internal.animate/-/mui-org.material-ui.internal.animate-3.9.2.tgz#f4bf056843ea218a0e82411f20a169d1d454af34"
+  integrity sha1-9L8FaEPqIYoOgkEfIKFp0dRUrzQ=
+
 "@bit/mui-org.material-ui.internal.arrow-drop-down@3.9.2":
   version "3.9.2"
   resolved "https://node.bit.dev/mui-org.material-ui.internal.arrow-drop-down/-/mui-org.material-ui.internal.arrow-drop-down-3.9.2.tgz#100edea2eea8a281729a365dae58ab62d9b28253"
@@ -1127,6 +1132,11 @@
   dependencies:
     sinon "^7.0.0"
 
+"@bit/mui-org.material-ui.internal.deprecated-prop-type@3.9.2":
+  version "3.9.2"
+  resolved "https://node.bit.dev/mui-org.material-ui.internal.deprecated-prop-type/-/mui-org.material-ui.internal.deprecated-prop-type-3.9.2.tgz#5002c788690703a99cf29befcae267f6d18b77e6"
+  integrity sha1-UALHiGkHA6mc8pvvyuJn9tGLd+Y=
+
 "@bit/mui-org.material-ui.internal.helpers@3.9.2":
   version "3.9.2"
   resolved "https://node.bit.dev/mui-org.material-ui.internal.helpers/-/mui-org.material-ui.internal.helpers-3.9.2.tgz#f96bd1f086416baeb437e5fcc6a9543821d88cac"
@@ -1138,6 +1148,22 @@
   version "3.9.2"
   resolved "https://node.bit.dev/mui-org.material-ui.internal.indeterminate-check-box/-/mui-org.material-ui.internal.indeterminate-check-box-3.9.2.tgz#eed6beed0c6bc2738b25c856045abefa07bd51b9"
   integrity sha1-7ta+7QxrwnOLJchWBFq++ge9Ubk=
+  dependencies:
+    "@bit/mui-org.material-ui.svg-icon" "3.9.2"
+    recompose "0.30.0"
+
+"@bit/mui-org.material-ui.internal.keyboard-arrow-left@3.9.2":
+  version "3.9.2"
+  resolved "https://node.bit.dev/mui-org.material-ui.internal.keyboard-arrow-left/-/mui-org.material-ui.internal.keyboard-arrow-left-3.9.2.tgz#ea6453b01b9f3be596f05ee0de4f0611d7959aae"
+  integrity sha1-6mRTsBufO+WW8F7g3k8GEdeVmq4=
+  dependencies:
+    "@bit/mui-org.material-ui.svg-icon" "3.9.2"
+    recompose "0.30.0"
+
+"@bit/mui-org.material-ui.internal.keyboard-arrow-right@3.9.2":
+  version "3.9.2"
+  resolved "https://node.bit.dev/mui-org.material-ui.internal.keyboard-arrow-right/-/mui-org.material-ui.internal.keyboard-arrow-right-3.9.2.tgz#c74dddc49773d29f50d4d809e05ce905efda0acf"
+  integrity sha1-x03dxJdz0p9Q1NgJ4FzpBe/aCs8=
   dependencies:
     "@bit/mui-org.material-ui.svg-icon" "3.9.2"
     recompose "0.30.0"
@@ -1187,6 +1213,11 @@
   integrity sha1-08NiL7H0C4W+r+oK57OjLed7DSY=
   dependencies:
     react-transition-group "2.5.3"
+
+"@bit/mui-org.material-ui.internal.unsupported-prop@3.9.2":
+  version "3.9.2"
+  resolved "https://node.bit.dev/mui-org.material-ui.internal.unsupported-prop/-/mui-org.material-ui.internal.unsupported-prop-3.9.2.tgz#d8258f0b33faf70a463cf7476a62591155db61a8"
+  integrity sha1-2CWPCzP69wpGPPdHamJZEVXbYag=
 
 "@bit/mui-org.material-ui.internal.warning@3.9.2":
   version "3.9.2"
@@ -1549,6 +1580,46 @@
     "@material-ui/utils" "^3.0.0-alpha.3"
     classnames "2.2.6"
     prop-types "15.7.2"
+
+"@bit/mui-org.material-ui.tab@^3.9.2":
+  version "3.9.2"
+  resolved "https://node.bit.dev/mui-org.material-ui.tab/-/mui-org.material-ui.tab-3.9.2.tgz#85b8e04232209f08cff1e61cd393b3fd27eb1a2e"
+  integrity sha1-hbjgQjIgnwjP8eYc05Oz/SfrGi4=
+  dependencies:
+    "@bit/mui-org.material-ui.button-base" "3.9.2"
+    "@bit/mui-org.material-ui.internal.helpers" "3.9.2"
+    "@bit/mui-org.material-ui.internal.unsupported-prop" "3.9.2"
+    "@bit/mui-org.material-ui.prop-typesd" "3.9.2"
+    "@bit/mui-org.material-ui.standard-propsd" "3.9.2"
+    "@bit/mui-org.material-ui.styles" "3.9.2"
+    classnames "2.2.6"
+    prop-types "15.7.2"
+
+"@bit/mui-org.material-ui.tabs@^3.9.2":
+  version "3.9.2"
+  resolved "https://node.bit.dev/mui-org.material-ui.tabs/-/mui-org.material-ui.tabs-3.9.2.tgz#9bb27b1e984a8610067a19b415f74182a8c5c66d"
+  integrity sha1-m7J7HphKhhAGehm0FfdBgqjFxm0=
+  dependencies:
+    "@bit/mui-org.material-ui.button-base" "3.9.2"
+    "@bit/mui-org.material-ui.internal.animate" "3.9.2"
+    "@bit/mui-org.material-ui.internal.deprecated-prop-type" "3.9.2"
+    "@bit/mui-org.material-ui.internal.helpers" "3.9.2"
+    "@bit/mui-org.material-ui.internal.keyboard-arrow-left" "3.9.2"
+    "@bit/mui-org.material-ui.internal.keyboard-arrow-right" "3.9.2"
+    "@bit/mui-org.material-ui.prop-typesd" "3.9.2"
+    "@bit/mui-org.material-ui.standard-propsd" "3.9.2"
+    "@bit/mui-org.material-ui.styles" "3.9.2"
+    "@bit/mui-org.material-ui.test-utils" "3.9.2"
+    "@material-ui/utils" "^3.0.0-alpha.3"
+    chai "^4.1.2"
+    classnames "2.2.6"
+    debounce "1.2.0"
+    enzyme "^3.5.0"
+    normalize-scroll-left "0.1.2"
+    prop-types "15.7.2"
+    react-event-listener "0.6.6"
+    sinon "^7.0.0"
+    warning "4.0.3"
 
 "@bit/mui-org.material-ui.test-utils@3.9.2":
   version "3.9.2"
@@ -9914,6 +9985,11 @@ normalize-range@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
   integrity sha1-LRDAa9/TEuqXd2laTShDlFa3WUI=
+
+normalize-scroll-left@0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/normalize-scroll-left/-/normalize-scroll-left-0.1.2.tgz#6b79691ba79eb5fb107fa5edfbdc06b55caee2aa"
+  integrity sha512-F9YMRls0zCF6BFIE2YnXDRpHPpfd91nOIaNdDgrx5YMoPLo8Wqj+6jNXHQsYBavJeXP4ww8HCt0xQAKc5qk2Fg==
 
 normalize-scroll-left@^0.2.0:
   version "0.2.0"

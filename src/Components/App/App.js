@@ -7,7 +7,8 @@ import Row from 'react-bootstrap/Row'
 import Firebase from 'firebase';
 import { FirebaseDatabaseProvider } from "@react-firebase/database";
 import config from '../../Database/config';
-import NotaryTimeTable from '../NotaryTimeTable/NotaryTimeTable';
+import ForNotary from '../ForNotary/ForNotary';
+import EditPriceList from '../ForNotary/EditPriceList/EditPriceList';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
@@ -24,7 +25,7 @@ class App extends React.Component {
       <Router>
         <div className="App">
           <Route path="/" exact component={Main} />
-          <Route path="/notary-time-table/" component={NotaryTimeTable} />
+          <Route path="/for-notary/" component={ForNotary} />
         </div>
       </Router>
     );

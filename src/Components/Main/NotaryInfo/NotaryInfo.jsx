@@ -36,7 +36,7 @@ class NotaryInfo extends React.Component {
                         <Grid item>
                             <Typography variant="h5">Семина Ольга Алексеевна</Typography>
                             <Typography variant="h6">Нотариус</Typography>
-                            <Typography variant="body1">Лицензия на право нотариальной деятельности № 001915 от 21 мая 1993 г. Приказ о назначении на должность № 100-лс от 18 мая 1993 г.</Typography>
+                            <Typography variant="body1">Лицензия на право нотариальной деятельности № 001915 от 21 мая 1993 г.</Typography>
                             <Typography variant="body1">Приказ о назначении на должность № 100-лс от 18 мая 1993 г.</Typography>
                         </Grid>
                     </Grid>

@@ -64,7 +64,7 @@ class DataTimePicker extends React.Component {
     let currentDateData = null;
     ref.on("value", snapshot => {
       currentDateData = snapshot.val();
-      this.setState({currentDateData});
+      // this.setState({currentDateData});
       
       if(currentDateData === null) {
         this.setState({ freeTimeTable: dayTable })

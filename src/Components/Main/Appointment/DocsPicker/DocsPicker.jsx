@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Firebase from 'firebase';
 import Divider from '@material-ui/core/Divider';
 import { withStyles } from "@bit/mui-org.material-ui.styles";
-import ExpansionPanel from "@bit/mui-org.material-ui.expansion-panel";
-import ExpansionPanelDetails from "@bit/mui-org.material-ui.expansion-panel-details";
-import ExpansionPanelSummary from "@bit/mui-org.material-ui.expansion-panel-summary";
-import Typography from "@bit/mui-org.material-ui.typography";
-import ExpandMoreIcon from "@bit/mui-org.material-ui-icons.expand-more";
-import docsInfo from '../../../../Database/docsInfo';
+// import docsInfo from '../../../../Database/docsInfo';
 import Checkbox from "@bit/mui-org.material-ui.checkbox";
 import Button from "@bit/mui-org.material-ui.button";
 import Grid from '@material-ui/core/Grid';
@@ -33,6 +29,7 @@ const styles = theme => ({
 class DocsPicker extends React.Component {
   state = {
     checked: this.props.pickedDocs,
+    docsInfo: []
   };
 
   handleToggle = (index) => () => {
@@ -52,8 +49,18 @@ class DocsPicker extends React.Component {
     this.props.callbackPickedDocs([...newChecked]);
   };
 
+  componentWillMount() {
+    let ref = Firebase.database().ref(`/docs-info`);
+    ref.on("value", snapshot => {
+      const docsInfo = snapshot.val();
+      this.setState({docsInfo});
+      console.log(docsInfo);
+    });
+  }
+
   render() {
     const { classes } = this.props;
+
     return(  
       <List dense className={classes.root}>
         <ListItem key={333} divider>
@@ -74,8 +81,8 @@ class DocsPicker extends React.Component {
             </Grid>
           </Grid>
         </ListItem>
-        {docsInfo.map( (doc) => {
-          const index = docsInfo.indexOf(doc);
+        {this.state.docsInfo.map( (doc) => {
+          const index = this.state.docsInfo.indexOf(doc);
           return(
             <div key='list'>
               <ListItem key={index} button divider>

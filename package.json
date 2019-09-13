@@ -18,6 +18,8 @@
     "@bit/mui-org.material-ui.step-content": "^3.9.2",
     "@bit/mui-org.material-ui.step-label": "^3.9.2",
     "@bit/mui-org.material-ui.stepper": "^3.9.2",
+    "@bit/mui-org.material-ui.tab": "^3.9.2",
+    "@bit/mui-org.material-ui.tabs": "^3.9.2",
     "@bit/mui-org.material-ui.toolbar": "^3.9.2",
     "@date-io/core": "^1.3.6",
     "@date-io/date-fns": "^1.3.9",
