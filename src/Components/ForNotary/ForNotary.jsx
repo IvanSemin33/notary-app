@@ -29,7 +29,7 @@ import EditPriceList from './EditPriceList/EditPriceList';
 
 class ForNotary extends React.Component {
     state = {
-        isLogin: true,
+        isLogin: false,
         pass: '5819',
         passInput: '',
         tab: 0,
@@ -53,39 +53,39 @@ class ForNotary extends React.Component {
         return(
             <Grid container
                 direction="column"
-                justify="space-around"
+                justify="space-between"
                 alignItems="center"
-                spacing={5}
+                spacing={3}
                 style={{width: '100%'}}
             >
                 {this.state.isLogin ? '' :
                     (<Grid item>
-                        <Grid item>
-                            <TextField
-                                id="standard-password-input"
-                                label="Password"
-                                type="password"
-                                autoComplete="current-password"
-                                margin="normal"
-                                onChange={this.handlePassInput}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <Button onClick={this.onLogin} variant="contained" size="large" color="primary">Войти</Button>
-                        </Grid>
+                        <TextField
+                            id="standard-password-input"
+                            label="Password"
+                            type="password"
+                            autoComplete="current-password"
+                            margin="normal"
+                            onChange={this.handlePassInput}
+                        />
                     </Grid>)
                 }
-                {this.state.isLogin ? (
-                    <Grid item style={{width: '100%'}} >
-                        <AppBar position="static" color="default" style={{width: '100%'}}>
-                            <Tabs value={this.state.tab} indicatorColor="primary" textColor="primary" onChange={this.handleChangeTab}>
-                                <Tab label="Таблица записей"/>
-                                <Tab label="Редактировать прайс-лист"/>
-                            </Tabs>
-                        </AppBar>
-                    <Grid item style={{width: '100%'}} >
+                {this.state.isLogin ? '' :
+                    (<Grid item>
+                        <Button onClick={this.onLogin} variant="contained" color="primary">Войти</Button>
+                    </Grid>)
+                }
+                {this.state.isLogin ? 
+                    (<Grid item style={{width: '30%'}} >
+                        <Tabs value={this.state.tab} indicatorColor="primary" textColor="primary" onChange={this.handleChangeTab}>
+                            <Tab label="Таблица записей"/>
+                            <Tab label="Редактировать прайс-лист"/>
+                        </Tabs>
+                    </Grid>) 
+                : ''}
+                {this.state.isLogin ? 
+                    (<Grid item style={{width: '100%'}} >
                         {this.state.tab === 0 ? <AppointmentsTable /> : <EditPriceList />}
-                    </Grid>
                     </Grid>)
                 : ''}
             </Grid>

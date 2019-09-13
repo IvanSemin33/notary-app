@@ -61,6 +61,9 @@ class AppointmentsTable extends React.Component {
                         <TableCell align="center">{day}</TableCell>
                         <TableCell align="center">{time}</TableCell>
                         <TableCell align="center">{docs}</TableCell>
+                        <TableCell align="center">
+                            <Button variant="contained" color="secondary" onClick={() => this.onClickDelete({day, time})}>Удалить</Button>
+                        </TableCell>
                     </TableRow>
                 )
             });
@@ -72,13 +75,20 @@ class AppointmentsTable extends React.Component {
         this.setState({ pickedMonth: event.target.value });
     };
 
+    onClickDelete = (deletePath) => {
+        const year = this.state.currentYear;
+        const month = this.state.pickedMonth;
+        const {day, time} = deletePath;
+        Firebase.database().ref(`/${year}/${month}/${day}/${time}`).remove();
+    }
+
     render() {
         return(
             <Grid container
                 direction="column"
                 justify="space-around"
                 alignItems="center"
-                spacing={8}
+                spacing={3}
             >                       
                 <Grid item align="center">
                     <FormControl>
@@ -103,7 +113,7 @@ class AppointmentsTable extends React.Component {
                     </FormControl>
                 </Grid>
                 <Grid item align="center">
-                    <Button onClick={this.onClickRefresh} variant="contained" size="large" color="primary">Обновить</Button>
+                    <Button onClick={this.onClickRefresh} variant="contained" color="primary">Обновить</Button>
                 </Grid>
                 <Grid item style={{width: '100%'}}>
                     <Table style={{width: '100%'}}>
@@ -114,6 +124,7 @@ class AppointmentsTable extends React.Component {
                                 <TableCell align="center">Дата</TableCell>
                                 <TableCell align="center">Время</TableCell>
                                 <TableCell align="center">Документы</TableCell>
+                                <TableCell align="center">Действие</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

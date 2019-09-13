@@ -70,14 +70,15 @@ class EditPriceList extends React.Component {
         this.setState({newDocPrice: event.target.value})
     }
 
-    onClickAdd = (event) => {
-        console.log(this.state.docsInfo.length);
-        Firebase.database().ref(`/docs-info/${this.state.docsInfo.length}/`).update(
+    onClickAdd = (id) => {
+        Firebase.database().ref(`/docs-info/${id}/`).update(
             {
                 name: this.state.newDocName,
                 price: this.state.newDocPrice
             }
         );
+        this.setState({newDocName: ''});
+        this.setState({newDocPrice: ''});
     }
     
 
@@ -138,7 +139,7 @@ class EditPriceList extends React.Component {
                                 <TextField
                                     style={{width: "700px"}}                        
                                     id={this.state.docsInfo.length}
-                                    defaultValue={''}
+                                    value={this.state.newDocName}
                                     margin="normal"
                                     variant="outlined"
                                     inputProps={{ 'aria-label': 'bare' }}
@@ -148,7 +149,7 @@ class EditPriceList extends React.Component {
                             <TableCell align="center">
                                 <TextField
                                     id={this.state.docsInfo.length}
-                                    defaultValue={''}
+                                    value={this.state.newDocPrice}
                                     margin="normal"
                                     variant="outlined"
                                     inputProps={{ 'aria-label': 'bare' }}
@@ -156,7 +157,7 @@ class EditPriceList extends React.Component {
                                 />
                             </TableCell>
                             <TableCell align="center">
-                                <Button onClick={this.onClickAdd}>
+                                <Button variant="contained" color="primary" onClick={() => this.onClickAdd(this.state.docsInfo.length)}>
                                     Добавить
                                 </Button>
                             </TableCell>
