@@ -1,35 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Firebase from 'firebase';
-import Divider from '@material-ui/core/Divider';
+import React from "react";
+import PropTypes from "prop-types";
+import Firebase from "firebase";
+import Divider from "@material-ui/core/Divider";
 import { withStyles } from "@bit/mui-org.material-ui.styles";
-// import docsInfo from '../../../../Database/docsInfo';
 import Checkbox from "@bit/mui-org.material-ui.checkbox";
-import Button from "@bit/mui-org.material-ui.button";
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
+import Grid from "@material-ui/core/Grid";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
 
-
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    width: '100%'
+    width: "100%",
   },
   checkbox: {
-    width: '20%'
+    width: "20%",
   },
   listItem: {
-    width: '100%'
-  }
+    width: "100%",
+  },
 });
 
 class DocsPicker extends React.Component {
   state = {
     checked: this.props.pickedDocs,
-    docsInfo: []
+    docsInfo: [],
   };
 
   handleToggle = (index) => () => {
@@ -44,16 +40,16 @@ class DocsPicker extends React.Component {
     }
 
     this.setState({
-      checked: newChecked
+      checked: newChecked,
     });
     this.props.callbackPickedDocs([...newChecked]);
   };
 
   componentWillMount() {
     let ref = Firebase.database().ref(`/docs-info`);
-    ref.on("value", snapshot => {
+    ref.on("value", (snapshot) => {
       const docsInfo = snapshot.val();
-      this.setState({docsInfo});
+      this.setState({ docsInfo });
       console.log(docsInfo);
     });
   }
@@ -61,50 +57,52 @@ class DocsPicker extends React.Component {
   render() {
     const { classes } = this.props;
 
-    return(  
+    return (
       <List dense className={classes.root}>
         <ListItem key={333} divider>
-          <Grid container
+          <Grid
+            container
             className={classes.listItem}
             direction="row"
             justify="flex-start"
             alignItems="center"
           >
-            <Grid item style={{width: '75%'}}>
+            <Grid item style={{ width: "75%" }}>
               <ListItemText id={333} primary={`ДОКУМЕНТ`} />
             </Grid>
-            <Grid item style={{width: '20%'}}>
+            <Grid item style={{ width: "20%" }}>
               <ListItemText id={333} primary={`ЦЕНА`} />
             </Grid>
-            <Grid item style={{width: '5%'}}>
+            <Grid item style={{ width: "5%" }}>
               <ListItemText id={333} primary={`ВЫБРАТЬ`} />
             </Grid>
           </Grid>
         </ListItem>
-        {this.state.docsInfo.map( (doc) => {
+        {this.state.docsInfo.map((doc) => {
           const index = this.state.docsInfo.indexOf(doc);
-          return(
-            <div key='list'>
+          return (
+            <div key="list">
               <ListItem key={index} button divider>
-                <Grid container
+                <Grid
+                  container
                   className={classes.listItem}
                   direction="row"
                   justify="flex-start"
                   alignItems="center"
                 >
-                  <Grid item style={{width: '75%'}}>
+                  <Grid item style={{ width: "75%" }}>
                     <ListItemText id={index} primary={`${doc.name}`} />
                   </Grid>
-                  <Grid item style={{width: '20%'}}>
+                  <Grid item style={{ width: "20%" }}>
                     <ListItemText id={index} primary={`${doc.price}`} />
                   </Grid>
-                  <Grid item style={{width: '5%'}}>
+                  <Grid item style={{ width: "5%" }}>
                     <ListItemSecondaryAction>
                       <Checkbox
                         edge="end"
                         onChange={this.handleToggle(index)}
                         checked={this.state.checked.indexOf(index) !== -1}
-                        inputProps={{ 'aria-labelledby': index }}
+                        inputProps={{ "aria-labelledby": index }}
                       />
                     </ListItemSecondaryAction>
                   </Grid>
@@ -112,74 +110,69 @@ class DocsPicker extends React.Component {
               </ListItem>
               <Divider />
             </div>
-            )
-          })
-        }
-      </List>)
-  };
-};
+          );
+        })}
+      </List>
+    );
+  }
+}
 
 DocsPicker.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(DocsPicker);
 
-            // <Paper>
-            // <Grid container
-            //   className={classes.root}
-            //   direction="row"
-            //   justify="center"
-            //   alignItems="center"
-            // >
-            //   <Grid item className={classes.panel}>
-            //         <Typography className={classes.heading}>{doc.name}</Typography>
-            //         <Typography className={classes.secondaryHeading}>{doc.price}</Typography>
-      
-            //   </Grid>
-            //   <Grid item className={classes.checkbox}>
-            //         <Checkbox
-            //           onChange={this.handleToggle(index)}
-            //           checked={this.state.checked.indexOf(index) !== -1}
-            //         />
-            //   </Grid>
-            // </Grid>
-            // </Paper>
-          // )
+// <Paper>
+// <Grid container
+//   className={classes.root}
+//   direction="row"
+//   justify="center"
+//   alignItems="center"
+// >
+//   <Grid item className={classes.panel}>
+//         <Typography className={classes.heading}>{doc.name}</Typography>
+//         <Typography className={classes.secondaryHeading}>{doc.price}</Typography>
 
-    
-    
-    
-    // docsInfo.map( (doc) => {
-    //   const index = docsInfo.indexOf(doc);
-    //   return(
-    //     <Paper>
-    //     <Grid container
-    //       className={classes.root}
-    //       direction="row"
-    //       justify="center"
-    //       alignItems="center"
-    //     >
-    //       <Grid item className={classes.panel}>
-    //             <Typography className={classes.heading}>{doc.name}</Typography>
-    //             <Typography className={classes.secondaryHeading}>{doc.price}</Typography>
-  
-    //       </Grid>
-    //       <Grid item className={classes.checkbox}>
-    //             <Checkbox
-    //               onChange={this.handleToggle(index)}
-    //               checked={this.state.checked.indexOf(index) !== -1}
-    //             />
-    //       </Grid>
-    //     </Grid>
-    //     </Paper>
+//   </Grid>
+//   <Grid item className={classes.checkbox}>
+//         <Checkbox
+//           onChange={this.handleToggle(index)}
+//           checked={this.state.checked.indexOf(index) !== -1}
+//         />
+//   </Grid>
+// </Grid>
+// </Paper>
+// )
 
-    //   )
+// docsInfo.map( (doc) => {
+//   const index = docsInfo.indexOf(doc);
+//   return(
+//     <Paper>
+//     <Grid container
+//       className={classes.root}
+//       direction="row"
+//       justify="center"
+//       alignItems="center"
+//     >
+//       <Grid item className={classes.panel}>
+//             <Typography className={classes.heading}>{doc.name}</Typography>
+//             <Typography className={classes.secondaryHeading}>{doc.price}</Typography>
+
+//       </Grid>
+//       <Grid item className={classes.checkbox}>
+//             <Checkbox
+//               onChange={this.handleToggle(index)}
+//               checked={this.state.checked.indexOf(index) !== -1}
+//             />
+//       </Grid>
+//     </Grid>
+//     </Paper>
+
+//   )
 //     });
 //   }
 // }
-
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////|DOCS WITH PRICE|///////////////////////////////////////////////
@@ -197,7 +190,6 @@ export default withStyles(styles)(DocsPicker);
 // import Checkbox from "@bit/mui-org.material-ui.checkbox";
 // import Button from "@bit/mui-org.material-ui.button";
 // import Grid from '@material-ui/core/Grid';
-
 
 // const styles = theme => ({
 //   root: {
@@ -268,8 +260,8 @@ export default withStyles(styles)(DocsPicker);
 //           alignItems="center"
 //         >
 //           <Grid item className={classes.panel}>
-//             <ExpansionPanel 
-//               expanded={expanded === `panel${index}`} 
+//             <ExpansionPanel
+//               expanded={expanded === `panel${index}`}
 //               onChange={this.handleChange(`panel${index}`)}
 //               className={classes.expansionPanel}
 //             >

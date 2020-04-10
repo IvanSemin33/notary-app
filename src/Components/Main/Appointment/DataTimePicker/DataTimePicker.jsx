@@ -1,33 +1,36 @@
-import 'date-fns';
-import React from 'react';
-import Firebase from 'firebase';
-import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
+import "date-fns";
+import React from "react";
+import Firebase from "firebase";
+import Grid from "@material-ui/core/Grid";
+import DateFnsUtils from "@date-io/date-fns";
 import ruLocale from "date-fns/locale/ru";
-import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
-import PropTypes from 'prop-types';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import PropTypes from "prop-types";
 import { withStyles } from "@bit/mui-org.material-ui.styles";
 import Input from "@bit/mui-org.material-ui.input";
 import InputLabel from "@bit/mui-org.material-ui.input-label";
 import MenuItem from "@bit/mui-org.material-ui.menu-item";
 import FormControl from "@bit/mui-org.material-ui.form-control";
 import Select from "@bit/mui-org.material-ui.select";
-import {timeTable, daysType} from "../../../../Database/database";
+import { timeTable } from "../../../../Database/database";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    width: '100%'
+    width: "100%",
   },
   item: {
-    width: '18%'
+    width: "18%",
   },
   formControl: {
     margin: theme.spacing.unit,
-    width: "100%"
+    width: "100%",
   },
   selectEmpty: {
-    marginTop: theme.spacing.unit * 2
-  }
+    marginTop: theme.spacing.unit * 2,
+  },
 });
 
 class DataTimePicker extends React.Component {
@@ -35,53 +38,55 @@ class DataTimePicker extends React.Component {
     pickedDate: this.props.pickedDate,
     pickedTime: this.props.pickedTime,
     freeTimeTable: [],
-    // currentDateData
-  }
+  };
 
   handleDateChange = (date) => {
-    this.setState({pickedDate: date});
+    this.setState({ pickedDate: date });
     this.getFreeTimeTable(date);
-  }
+  };
 
   componentDidMount = () => {
     this.getFreeTimeTable(this.state.pickedDate);
-  }
+  };
 
-  handleTimeChange = event => {
+  handleTimeChange = (event) => {
     this.setState({ pickedTime: event.target.value });
-    this.props.callbackPickedDateTime({ date: this.state.pickedDate, time: event.target.value });
+    this.props.callbackPickedDateTime({
+      date: this.state.pickedDate,
+      time: event.target.value,
+    });
   };
 
   getFreeTimeTable = (pickedDate) => {
     const day = pickedDate.getDay();
     const date = pickedDate.getDate();
-    const month = pickedDate.getMonth()+1;
+    const month = pickedDate.getMonth() + 1;
     const year = pickedDate.getFullYear();
-    const fullDate = `${date}-${month}-${year}`;
     const dayTable = timeTable[day];
 
     let ref = Firebase.database().ref(`/${year}/${month}/${date}`);
     let currentDateData = null;
-    ref.on("value", snapshot => {
+    ref.on("value", (snapshot) => {
       currentDateData = snapshot.val();
-      // this.setState({currentDateData});
-      
-      if(currentDateData === null) {
-        this.setState({ freeTimeTable: dayTable })
-      }
-      else {
+
+      if (currentDateData === null) {
+        this.setState({ freeTimeTable: dayTable });
+      } else {
         const currentDateTime = Object.keys(currentDateData);
-        const freeTimeTable = dayTable.filter( time => !currentDateTime.includes(time));
-        this.setState({freeTimeTable});
+        const freeTimeTable = dayTable.filter(
+          (time) => !currentDateTime.includes(time)
+        );
+        this.setState({ freeTimeTable });
       }
     });
-  }
+  };
 
   render() {
     const { classes } = this.props;
 
     return (
-      <Grid container
+      <Grid
+        container
         direction="column"
         justify="space-around"
         alignItems="center"
@@ -98,7 +103,7 @@ class DataTimePicker extends React.Component {
               value={this.state.pickedDate}
               onChange={this.handleDateChange}
               KeyboardButtonProps={{
-                'aria-label': 'change date',
+                "aria-label": "change date",
               }}
             />
           </MuiPickersUtilsProvider>
@@ -108,19 +113,19 @@ class DataTimePicker extends React.Component {
             <InputLabel shrink htmlFor="time-label-placeholder">
               Время приема
             </InputLabel>
-            <Select 
+            <Select
               value={this.state.pickedTime}
               onChange={this.handleTimeChange}
               input={<Input id="time-label-placeholder" />}
               displayEmpty
               className={classes.selectEmpty}
             >
-              <MenuItem value="">
-                Выберите время
-              </MenuItem>
-              {this.state.freeTimeTable.map( (time) => 
-                <MenuItem value={time} key={time}>{time}</MenuItem>)
-              }
+              <MenuItem value="">Выберите время</MenuItem>
+              {this.state.freeTimeTable.map((time) => (
+                <MenuItem value={time} key={time}>
+                  {time}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
@@ -130,7 +135,7 @@ class DataTimePicker extends React.Component {
 }
 
 DataTimePicker.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(DataTimePicker);

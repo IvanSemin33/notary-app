@@ -1,4 +1,3 @@
-
 const config = {
   apiKey: "AIzaSyBO8odI7sUUSwXm4t1TwU73shD3O_YifII",
   projectId: "notary-semina-olga",

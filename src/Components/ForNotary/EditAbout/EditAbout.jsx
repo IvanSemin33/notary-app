@@ -9,57 +9,55 @@ import Firebase from "firebase";
 import { Button } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 
-class EditPriceList extends React.Component {
+class EditAbout extends React.Component {
   state = {
-    docsInfo: [],
-    newDocName: "",
-    newDocPrice: "",
+    aboutData: [],
+    newTitle: "",
+    newInfo: "",
   };
 
   componentWillMount() {
-    let ref = Firebase.database().ref(`/docs-info`);
+    let ref = Firebase.database().ref(`/about`);
     ref.on("value", (snapshot) => {
-      const docsInfo = snapshot.val();
-      //   setTimeout(() => '', 10000);
-      this.setState({ docsInfo });
-      console.log(docsInfo);
+      const aboutData = snapshot.val();
+      this.setState({ aboutData });
+      console.log(aboutData);
     });
   }
 
-  onChangeName = (event) => {
+  onChangeTitle = (event) => {
     console.log(event.target.id);
-    Firebase.database().ref(`/docs-info/${event.target.id}`).update({
-      name: event.target.value,
+    Firebase.database().ref(`/about/${event.target.id}`).update({
+      title: event.target.value,
     });
   };
 
-  onChangePrice = (event) => {
+  onChangeInfo = (event) => {
     console.log(event.target.id);
-    Firebase.database().ref(`/docs-info/${event.target.id}`).update({
-      price: event.target.value,
+    Firebase.database().ref(`/about/${event.target.id}`).update({
+      info: event.target.value,
     });
   };
 
   onChangeNewName = (event) => {
-    this.setState({ newDocName: event.target.value });
+    this.setState({ newTitle: event.target.value });
   };
 
   onChangeNewPrice = (event) => {
-    this.setState({ newDocPrice: event.target.value });
+    this.setState({ newInfo: event.target.value });
   };
 
   onClickAdd = (id) => {
-    Firebase.database().ref(`/docs-info/${id}/`).update({
-      name: this.state.newDocName,
-      price: this.state.newDocPrice,
+    Firebase.database().ref(`/about/${id}/`).update({
+      title: this.state.newTitle,
+      info: this.state.newInfo,
     });
-    this.setState({ newDocName: "" });
-    this.setState({ newDocPrice: "" });
+    this.setState({ newTitle: "", newInfo: "" });
   };
 
   renderTable = () => {
-    return this.state.docsInfo.map((doc) => {
-      const index = this.state.docsInfo.indexOf(doc);
+    return this.state.aboutData.map((data) => {
+      const index = this.state.aboutData.indexOf(data);
       return (
         <TableRow key={index}>
           <TableCell component="th" scope="row" align="center">
@@ -69,21 +67,21 @@ class EditPriceList extends React.Component {
             <TextField
               style={{ width: "700px" }}
               id={index}
-              defaultValue={doc.name}
+              defaultValue={data.title}
               margin="normal"
               variant="outlined"
               inputProps={{ "aria-label": "bare" }}
-              onChange={this.onChangeName}
+              onChange={this.onChangeTitle}
             />
           </TableCell>
           <TableCell align="center">
             <TextField
               id={index}
-              defaultValue={doc.price}
+              defaultValue={data.info}
               margin="normal"
               variant="outlined"
               inputProps={{ "aria-label": "bare" }}
-              onChange={this.onChangePrice}
+              onChange={this.onChangeInfo}
             />
           </TableCell>
         </TableRow>
@@ -105,21 +103,21 @@ class EditPriceList extends React.Component {
           <TableHead>
             <TableRow>
               <TableCell align="center">ID</TableCell>
-              <TableCell align="center">Название</TableCell>
-              <TableCell align="center">Цена</TableCell>
+              <TableCell align="center">Заголовок</TableCell>
+              <TableCell align="center">Информация</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {this.renderTable()}
             <TableRow key={333}>
               <TableCell component="th" scope="row" align="center">
-                {this.state.docsInfo.length}
+                {this.state.aboutData.length}
               </TableCell>
               <TableCell align="center">
                 <TextField
                   style={{ width: "700px" }}
-                  id={this.state.docsInfo.length}
-                  value={this.state.newDocName}
+                  id={this.state.aboutData.length}
+                  value={this.state.newTitle}
                   margin="normal"
                   variant="outlined"
                   inputProps={{ "aria-label": "bare" }}
@@ -128,8 +126,8 @@ class EditPriceList extends React.Component {
               </TableCell>
               <TableCell align="center">
                 <TextField
-                  id={this.state.docsInfo.length}
-                  value={this.state.newDocPrice}
+                  id={this.state.aboutData.length}
+                  value={this.state.newInfo}
                   margin="normal"
                   variant="outlined"
                   inputProps={{ "aria-label": "bare" }}
@@ -140,7 +138,7 @@ class EditPriceList extends React.Component {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => this.onClickAdd(this.state.docsInfo.length)}
+                  onClick={() => this.onClickAdd(this.state.aboutData.length)}
                 >
                   Добавить
                 </Button>
@@ -148,10 +146,8 @@ class EditPriceList extends React.Component {
             </TableRow>
           </TableBody>
         </Table>
-
-        <Grid item></Grid>
       </Grid>
     );
   }
 }
-export default EditPriceList;
+export default EditAbout;
