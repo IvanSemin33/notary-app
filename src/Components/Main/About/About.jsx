@@ -22,7 +22,7 @@ class About extends React.Component {
 
     return (
       <Grid container direction="column" justify="center" alignItems="center">
-        {aboutData !== [] && <Typography variant="h4">О нас</Typography>}
+        {aboutData.length !== 0 && <Typography variant="h4">О нас</Typography>}
         <Grid
           container
           direction="column"

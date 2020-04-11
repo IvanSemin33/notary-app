@@ -67,7 +67,7 @@ class EditPriceList extends React.Component {
           </TableCell>
           <TableCell align="center">
             <TextField
-              style={{ width: "700px" }}
+              style={{ width: "100%" }}
               id={index}
               defaultValue={doc.name}
               margin="normal"
@@ -117,7 +117,7 @@ class EditPriceList extends React.Component {
               </TableCell>
               <TableCell align="center">
                 <TextField
-                  style={{ width: "700px" }}
+                  style={{ width: "100%" }}
                   id={this.state.docsInfo.length}
                   value={this.state.newDocName}
                   margin="normal"

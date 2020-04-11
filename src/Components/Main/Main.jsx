@@ -10,6 +10,7 @@ import TimeTable from "./TimeTable/TimeTable";
 import NotaryInfo from "./NotaryInfo/NotaryInfo";
 import { Link } from "react-router-dom";
 import About from "../Main/About/About";
+import Message from "../Main/Message/Message";
 
 const styles = {
   root: {
@@ -39,6 +40,9 @@ class Main extends React.Component {
         </Grid>
         <Grid item xs style={{ width: "85%" }}>
           <NotaryInfo />
+        </Grid>
+        <Grid item xs style={{ width: "90%" }}>
+          <Message />
         </Grid>
         <Grid item xs style={{ width: "90%" }}>
           <TimeTable />

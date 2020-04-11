@@ -7,6 +7,7 @@ import Tab from "@bit/mui-org.material-ui.tab";
 import AppointmentsTable from "./AppointmentsTable/AppointmentsTable";
 import EditPriceList from "./EditPriceList/EditPriceList";
 import EditAbout from "./EditAbout/EditAbout";
+import EditMessage from './EditMessage/EditMassage';
 
 class ForNotary extends React.Component {
   state = {
@@ -72,6 +73,7 @@ class ForNotary extends React.Component {
               <Tab label="Таблица записей" />
               <Tab label="Редактировать прайс-лист" />
               <Tab label="Редактировать О нас" />
+              <Tab label="Обьявление" />
             </Tabs>
           </Grid>
         )}
@@ -80,6 +82,7 @@ class ForNotary extends React.Component {
             {this.state.tab === 0 && <AppointmentsTable />}
             {this.state.tab === 1 && <EditPriceList />}
             {this.state.tab === 2 && <EditAbout />}
+            {this.state.tab === 3 && <EditMessage />}
           </Grid>
         )}
       </Grid>

@@ -39,11 +39,11 @@ class EditAbout extends React.Component {
     });
   };
 
-  onChangeNewName = (event) => {
+  onChangeNewTitle = (event) => {
     this.setState({ newTitle: event.target.value });
   };
 
-  onChangeNewPrice = (event) => {
+  onChangeNewInfo = (event) => {
     this.setState({ newInfo: event.target.value });
   };
 
@@ -65,7 +65,7 @@ class EditAbout extends React.Component {
           </TableCell>
           <TableCell align="center">
             <TextField
-              style={{ width: "700px" }}
+              style={{ width: "100%" }}
               id={index}
               defaultValue={data.title}
               margin="normal"
@@ -76,12 +76,15 @@ class EditAbout extends React.Component {
           </TableCell>
           <TableCell align="center">
             <TextField
+              style={{ width: "100%" }}
               id={index}
               defaultValue={data.info}
               margin="normal"
               variant="outlined"
               inputProps={{ "aria-label": "bare" }}
               onChange={this.onChangeInfo}
+              multiline
+              rows="5"
             />
           </TableCell>
         </TableRow>
@@ -115,23 +118,26 @@ class EditAbout extends React.Component {
               </TableCell>
               <TableCell align="center">
                 <TextField
-                  style={{ width: "700px" }}
+                  style={{ width: "100%" }}
                   id={this.state.aboutData.length}
                   value={this.state.newTitle}
                   margin="normal"
                   variant="outlined"
                   inputProps={{ "aria-label": "bare" }}
-                  onChange={this.onChangeNewName}
+                  onChange={this.onChangeNewTitle}
                 />
               </TableCell>
               <TableCell align="center">
                 <TextField
+                  style={{ width: "100%" }}
                   id={this.state.aboutData.length}
                   value={this.state.newInfo}
                   margin="normal"
                   variant="outlined"
                   inputProps={{ "aria-label": "bare" }}
-                  onChange={this.onChangeNewPrice}
+                  onChange={this.onChangeNewInfo}
+                  multiline
+                  rows="5"
                 />
               </TableCell>
               <TableCell align="center">

@@ -29,10 +29,8 @@ class AppointmentsTable extends React.Component {
     const { pickedMonth, currentYear } = this.state;
 
     let ref = Firebase.database().ref(`/${currentYear}/${pickedMonth}/`);
-    let tableData = {};
     ref.on("value", (snapshot) => {
-      tableData = snapshot.val();
-      this.setState({ tableData });
+      this.setState({ tableData: snapshot.val() });
     });
   };
 
