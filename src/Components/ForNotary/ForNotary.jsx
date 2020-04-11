@@ -63,7 +63,7 @@ class ForNotary extends React.Component {
           </Grid>
         )}
         {this.state.isLogin && (
-          <Grid item style={{ width: "35%" }}>
+          <Grid item style={{ width: "43%" }}>
             <Tabs
               value={this.state.tab}
               indicatorColor="primary"
