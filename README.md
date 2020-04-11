@@ -1,4 +1,4 @@
-# Notary Office Application 📃
+# 📃Notary Office Application
 
 ## Installation
 
