@@ -1,6 +1,8 @@
 # 📃Notary Office Application
 
-## Installation
+### [demo](https://notary-semina-olga.web.app/)
+
+## installation
 
 * Clone repository
 ```
@@ -25,7 +27,7 @@ export default config;
 * Deploy app to **Firebase**
 ```firebase deploy```
 
-## Available Scripts
+## available Scripts
 
 In the project directory, you can run:
 
